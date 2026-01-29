@@ -23,14 +23,29 @@
 </nav>
 
 <section>
-<h2>💰 Salesman Payments</h2>
-<input id="payName" placeholder="Salesman Name">
-<input id="payAmount" type="number" placeholder="Amount">
-<button onclick="addSalesmanPayment()">Add</button>
-<table>
-<thead><tr><th>Salesman</th><th>Amount</th><th>Date</th></tr></thead>
-<tbody id="paymentTable"></tbody>
-</table>
+    <h2>Salesman Payments</h2>
+    <div class="form-group">
+        <select id="payName">
+            <option value="">Select Salesman</option>
+        </select>
+        <input type="number" id="payAmount" placeholder="Amount (₹)">
+        <button onclick="addSalesmanPayment()">Add Payment</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Salesman</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="paymentTable">
+                </tbody>
+        </table>
+    </div>
 </section>
 <script src="js/storage.js"></script>
 <script src="js/payments.js"></script>
