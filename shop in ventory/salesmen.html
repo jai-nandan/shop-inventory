@@ -23,15 +23,28 @@
 </nav>
 
 <section>
-<h2>👨‍💼 Salesmen</h2>
-<input id="sName" placeholder="Name">
-<input id="sMobile" placeholder="Mobile">
-<input id="sArea" placeholder="Area">
-<button onclick="addSalesman()">Add</button>
-<table>
-<thead><tr><th>Name</th><th>Mobile</th><th>Area</th></tr></thead>
-<tbody id="salesmanTable"></tbody>
-</table>
+    <h2>Salesman Management</h2>
+    <div class="form-group">
+        <input type="text" id="sName" placeholder="Salesman Name">
+        <input type="number" id="sMobile" placeholder="Mobile Number">
+        <input type="text" id="sArea" placeholder="Area">
+        <button onclick="addSalesman()">Add Salesman</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Area</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="salesmanTable">
+                </tbody>
+        </table>
+    </div>
 </section>
 <script src="js/storage.js"></script>
 <script src="js/salesmen.js"></script>
