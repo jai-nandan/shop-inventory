@@ -1,58 +1,166 @@
-/* --- Global Mobile-First Styles --- */
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
-body { background: #0b1220; color: #e5e7eb; overflow-x: hidden; }
+/* --- 1. Global Reset & Theme --- */
+* { 
+    box-sizing: border-box; 
+    font-family: 'Segoe UI', Roboto, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+}
 
-/* Navigation: Stacks on mobile, Rows on Laptop */
+body { 
+    background: #0b1220; 
+    color: #e5e7eb; 
+    line-height: 1.6;
+    overflow-x: hidden; 
+}
+
+/* --- 2. Header & Sticky Navigation --- */
+header { 
+    background: #020617; 
+    padding: 20px 15px; 
+    text-align: center; 
+    border-bottom: 2px solid #1e293b; 
+}
+
+header h1 { 
+    color: #38bdf8; 
+    font-size: clamp(1.4rem, 5vw, 2rem); 
+}
+
 nav { 
     display: flex; 
     flex-wrap: wrap; 
+    justify-content: center; 
     gap: 8px; 
-    padding: 10px; 
     background: #020617; 
+    padding: 10px; 
+    position: sticky; 
+    top: 0; 
+    z-index: 1000;
 }
+
 nav a { 
-    flex: 1 1 45%; /* Two buttons per row on mobile */
+    color: #e5e7eb; 
+    text-decoration: none; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    background: #1e293b; 
+    font-size: 0.85rem;
+    flex: 1 1 auto; /* Fill width on small screens */
     text-align: center;
-    padding: 10px;
-    background: #1e293b;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 14px;
+    transition: 0.3s;
 }
 
-/* Forms: Full width on mobile */
-.form-group { 
-    display: flex; 
-    flex-direction: column; 
-    gap: 10px; 
-    margin-bottom: 20px; 
-}
-input, select, button { width: 100%; padding: 12px; border-radius: 8px; }
+nav a:hover { background: #38bdf8; color: #020617; }
 
-/* Grid: 1 Column on Mobile, 3+ on Laptop */
+/* --- 3. Responsive Layout Containers --- */
+section { 
+    padding: 20px 15px; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column; /* Stack inputs on mobile */
+    gap: 12px;
+    margin-bottom: 25px;
+    background: #020617;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+/* --- 4. Forms & Buttons --- */
+input, select, button { 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid #334155; 
+    background: #1e293b; 
+    color: white; 
+    font-size: 1rem;
+    width: 100%; 
+}
+
+button { 
+    background: #38bdf8; 
+    color: #020617; 
+    font-weight: bold; 
+    border: none; 
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+button:active { transform: scale(0.98); }
+button.danger { background: #ef4444; color: white; }
+
+/* --- 5. Responsive Product/Company Cards --- */
 .card-grid { 
     display: grid; 
-    grid-template-columns: 1fr; 
-    gap: 15px; 
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); 
+    gap: 20px; 
 }
 
-/* Table: The "Safety Scroll" */
-.table-container { 
-    width: 100%; 
-    overflow-x: auto; 
+.card { 
     background: #020617; 
-    border-radius: 8px; 
+    border-radius: 14px; 
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column; 
+    border: 1px solid #1e293b;
+    height: 100%;
 }
-table { width: 100%; min-width: 500px; border-collapse: collapse; }
-th, td { padding: 12px; border: 1px solid #1e293b; text-align: center; }
 
-/* --- Laptop / Desktop Adjustments (Screen wider than 768px) --- */
+.card img { 
+    width: 100%; 
+    height: 160px; 
+    object-fit: contain; 
+    background: #0f172a;
+    border-radius: 10px; 
+    margin-bottom: 12px;
+}
+
+.card-actions { 
+    margin-top: auto; /* Pushes buttons to bottom */
+    display: flex; 
+    gap: 10px; 
+    padding-top: 15px;
+}
+
+/* --- 6. The "Magic" Table Responsiveness --- */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Enables horizontal swipe */
+    background: #020617;
+    border-radius: 10px;
+    margin-top: 10px;
+    -webkit-overflow-scrolling: touch;
+}
+
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    min-width: 600px; /* Keeps table from squashing */
+}
+
+th, td { 
+    border: 1px solid #1e293b; 
+    padding: 14px 10px; 
+    text-align: center; 
+}
+
+th { background: #1e293b; color: #38bdf8; text-transform: uppercase; font-size: 0.75rem; }
+
+/* --- 7. Desktop Adjustments (Tablet & Up) --- */
 @media (min-width: 768px) {
-    nav a { flex: 0 1 auto; } /* Buttons sit in a single line */
+    .form-group {
+        flex-direction: row; 
+        align-items: center;
+    }
     
-    .form-group { flex-direction: row; } /* Inputs sit side-by-side */
     input, select, button { width: auto; flex: 1; }
-
-    .card-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+    
+    nav a { flex: 0 1 auto; }
 }
+
+/* Modal */
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); z-index: 2000; justify-content: center; align-items: center; }
+.modal img { max-width: 90%; max-height: 85vh; border-radius: 10px; }
