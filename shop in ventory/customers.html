@@ -23,14 +23,27 @@
 </nav>
 
 <section>
-<h2>💵 Customer Payments</h2>
-<input id="custName" placeholder="Customer Name">
-<input id="custAmount" type="number" placeholder="Amount Received">
-<button onclick="addCustomerPayment()">Add</button>
-<table>
-<thead><tr><th>Customer</th><th>Amount</th><th>Date</th></tr></thead>
-<tbody id="customerTable"></tbody>
-</table>
+    <h2>Customer Payments</h2>
+    <div class="form-group">
+        <input type="text" id="custName" placeholder="Customer/Shop Name">
+        <input type="number" id="custAmount" placeholder="Amount (₹)">
+        <button onclick="addCustomerPayment()">Add Record</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="customerTable">
+                </tbody>
+        </table>
+    </div>
 </section>
 <script src="js/storage.js"></script>
 <script src="js/customers.js"></script>
