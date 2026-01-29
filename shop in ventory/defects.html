@@ -23,15 +23,31 @@
 </nav>
 
 <section>
-<h2>⚠ Defective / Replacement</h2>
-<input id="dProduct" placeholder="Product">
-<input id="dQty" type="number" placeholder="Qty">
-<select id="dType"><option>Defective</option><option>Replacement</option></select>
-<button onclick="addDefect()">Add</button>
-<table>
-<thead><tr><th>Product</th><th>Qty</th><th>Type</th></tr></thead>
-<tbody id="defectTable"></tbody>
-</table>
+    <h2>Defective & Replacement</h2>
+    <div class="form-group">
+        <input type="text" id="defProduct" placeholder="Product Name">
+        <input type="number" id="defQty" placeholder="Quantity">
+        <select id="defType">
+            <option value="Defective">Defective</option>
+            <option value="Replacement">Replacement</option>
+        </select>
+        <button onclick="addDefect()">Add Defect</button>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="defectTable">
+                </tbody>
+        </table>
+    </div>
 </section>
 <script src="js/storage.js"></script>
 <script src="js/defects.js"></script>
