@@ -1,0 +1,46 @@
+function addProduct(){
+  const file = img.files[0];
+  if(!file) return alert("Add image");
+
+  const reader = new FileReader();
+  reader.onload = ()=>{
+    const products = getProducts();
+    products.push({
+      id:Date.now(),
+      name:name.value,
+      company:company.value,
+      qty:+qty.value,
+      img:reader.result
+    });
+    saveProducts(products);
+    render();
+  };
+  reader.readAsDataURL(file);
+}
+
+function render(){
+  cards.innerHTML="";
+  getProducts().forEach(p=>{
+    cards.innerHTML+=`
+    <div class="card ${p.qty<=5?'low':''}">
+      <img src="${p.img}">
+      <b>${p.name}</b><br>
+      ${p.company}<br>
+      Qty: ${p.qty}<br>
+      <button onclick="updateQty(${p.id},-1)">➖</button>
+      <button onclick="updateQty(${p.id},1)">➕</button>
+      <button onclick="remove(${p.id})">🗑</button>
+    </div>`;
+  });
+}
+function updateQty(id,d){
+  const p=getProducts();
+  const x=p.find(i=>i.id===id);
+  x.qty=Math.max(0,x.qty+d);
+  saveProducts(p);render();
+}
+function remove(id){
+  saveProducts(getProducts().filter(p=>p.id!==id));
+  render();
+}
+render();
