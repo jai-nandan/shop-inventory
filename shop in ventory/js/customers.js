@@ -1,1 +1,0 @@
-let customers=getData('customers');function addCustomerPayment(){customers.push({name:custName.value,amount:+custAmount.value,date:new Date().toLocaleDateString()});saveData('customers',customers);renderCustomers()}
