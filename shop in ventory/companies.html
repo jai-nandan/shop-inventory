@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Companies</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -24,11 +23,15 @@
 </nav>
 
 <section>
-<h2>🏭 Companies</h2>
-<input id="cName" placeholder="Company Name">
-<input id="cLogo" type="file" accept="image/*">
-<button onclick="addCompany()">Add</button>
-<div id="companyCards" class="card-grid"></div>
+    <h2>Company Management</h2>
+    <div class="form-group">
+        <input type="text" id="cName" placeholder="Company Name">
+        <input type="text" id="cBranch" placeholder="Branch (e.g., Ludhiana, Delhi)">
+        <button onclick="addCompany()">Add Company</button>
+    </div>
+
+    <div class="card-grid" id="companyCards">
+        </div>
 </section>
 <script src="js/storage.js"></script>
 <script src="js/companies.js"></script>
