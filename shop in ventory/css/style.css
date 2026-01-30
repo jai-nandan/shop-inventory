@@ -1,0 +1,211 @@
+/* --- 1. Variables & Global Reset --- */
+:root {
+    --bg-dark: #0b1220;
+    --card-bg: #020617;
+    --border: #1e293b;
+    --primary: #38bdf8;
+    --text-main: #e5e7eb;
+    --text-muted: #94a3b8;
+    --danger: #ef4444;
+    --success: #22c55e;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Roboto, -apple-system, sans-serif;
+}
+
+body {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* --- 2. Header & Navigation --- */
+header {
+    background: var(--card-bg);
+    padding: 2rem 1rem;
+    text-align: center;
+    border-bottom: 2px solid var(--border);
+}
+
+header h1 {
+    color: var(--primary);
+    font-size: clamp(1.2rem, 5vw, 2.2rem);
+    letter-spacing: 1px;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    background: var(--card-bg);
+    padding: 12px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background: var(--border);
+    font-size: 0.9rem;
+    transition: 0.3s ease;
+    flex: 1 1 auto; /* Grow on mobile */
+    text-align: center;
+    min-width: 120px;
+}
+
+nav a:hover {
+    background: var(--primary);
+    color: var(--card-bg);
+    font-weight: bold;
+}
+
+/* --- 3. Section & Form Layout --- */
+section {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--primary);
+    padding-left: 10px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column; /* Stacked on Mobile */
+    gap: 12px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    border: 1px solid var(--border);
+}
+
+/* --- 4. Inputs & Buttons --- */
+input, select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #111827;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.2);
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 8px;
+    background: var(--primary);
+    color: var(--card-bg);
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+}
+
+button:hover { background: #7dd3fc; }
+button:active { transform: scale(0.97); }
+button.danger { background: var(--danger); color: white; }
+
+/* --- 5. Responsive Grid (Cards) --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.card:hover { border-color: var(--primary); }
+
+.card h3 { color: var(--primary); margin-bottom: 5px; }
+
+.card-actions {
+    margin-top: auto;
+    display: flex;
+    gap: 8px;
+    padding-top: 15px;
+}
+
+.card-actions button {
+    flex: 1;
+    padding: 8px;
+    font-size: 0.8rem;
+}
+
+/* --- 6. Table Responsiveness --- */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Swipe left/right on mobile */
+    background: var(--card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 700px; /* Prevents squashing content */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    background: #111827;
+    color: var(--primary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+}
+
+tr:hover { background: #0f172a; }
+
+/* --- 7. Tablet & Laptop Adjustments --- */
+@media (min-width: 768px) {
+    .form-group {
+        flex-direction: row; /* Horizontal on Laptop */
+        align-items: center;
+    }
+
+    input, select { flex: 2; }
+    button { flex: 1; }
+
+    nav a { flex: 0 1 auto; }
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
