@@ -10,7 +10,7 @@ function renderAll() {
     if (typeof renderDashboard === 'function') renderDashboard();
 }
 
-// 1. Products
+// 1. Products (Photo removed, Smooth Edit integrated)
 function renderProducts() {
     const container = document.getElementById('productCards');
     if (!container) return;
@@ -19,19 +19,21 @@ function renderProducts() {
         const low = p.qty <= 5 ? 'low' : '';
         container.innerHTML += `
         <div class="card">
-            <img src="${p.img}" onclick="modalImg('${p.img}')">
             <h3>${p.name}</h3>
-            <p>Company: ${p.company}</p>
-            <p class="${low}">Qty: ${p.qty} ${low ? '⚠ Low' : ''}</p>
-            <button onclick="changeQty(${p.id},-1)">➖</button>
-            <button onclick="changeQty(${p.id},1)">➕</button>
-            <button onclick="editItem('products', ${p.id})">✏ Edit</button>
-            <button class="danger" onclick="deleteItem('products', ${p.id})">🗑 Delete</button>
+            <p><strong>Company:</strong> ${p.company}</p>
+            <p class="${low}"><strong>Qty:</strong> ${p.qty} ${low ? '⚠ Low' : ''}</p>
+            <p><strong>Price:</strong> ₹${p.price}</p>
+            <div class="card-actions">
+                <button onclick="changeQty(${p.id},-1)">➖</button>
+                <button onclick="changeQty(${p.id},1)">➕</button>
+                <button onclick="prepareEdit(${p.id})">✏ Edit</button>
+                <button class="danger" onclick="deleteItem('products', ${p.id})">🗑 Delete</button>
+            </div>
         </div>`;
     });
 }
 
-// 2. Companies
+// 2. Companies (Photo removed, Branch added, Smooth Edit integrated)
 function renderCompanies() {
     const container = document.getElementById('companyCards');
     if (!container) return;
@@ -39,23 +41,22 @@ function renderCompanies() {
     getData('companies').forEach(c => {
         container.innerHTML += `
         <div class="card">
-            <img class="card-logo" src="${c.logo}">
             <h3>${c.name}</h3>
+            <p><strong>Branch:</strong> ${c.branch || 'Main'}</p>
             <div class="card-actions">
-                <button onclick="editItem('companies', ${c.id})">✏ Edit</button>
+                <button onclick="prepareCompanyEdit(${c.id})">✏ Edit</button>
                 <button class="danger" onclick="deleteItem('companies', ${c.id})">🗑 Delete</button>
             </div>
         </div>`;
     });
 }
 
-// 3. Salesmen
+// 3. Salesmen (Table View)
 function renderSalesmen() {
     const table = document.getElementById('salesmanTable');
     if (!table) return;
     table.innerHTML = '';
-    const salesmen = getData('salesmen');
-    salesmen.forEach(s => {
+    getData('salesmen').forEach(s => {
         table.innerHTML += `<tr>
             <td>${s.name}</td><td>${s.mobile}</td><td>${s.area}</td>
             <td>
@@ -66,7 +67,7 @@ function renderSalesmen() {
     });
 }
 
-// 4. Defective
+// 4. Defective (Table View)
 function renderDefects() {
     const table = document.getElementById('defectTable');
     if (!table) return;
@@ -82,7 +83,7 @@ function renderDefects() {
     });
 }
 
-// 5. Customer Payments
+// 5. Customer Payments (Table View)
 function renderCustomers() {
     const table = document.getElementById('customerTable');
     if (!table) return;
@@ -98,7 +99,7 @@ function renderCustomers() {
     });
 }
 
-// 6. Salesman Payments
+// 6. Salesman Payments (Table View)
 function renderPayments() {
     const table = document.getElementById('paymentTable');
     if (!table) return;
@@ -114,32 +115,36 @@ function renderPayments() {
     });
 }
 
-// Universal Delete
+// --- Universal Logic ---
+
 function deleteItem(type, id) {
-    if(!confirm("Are you sure?")) return;
+    if (!confirm("Are you sure you want to delete this?")) return;
+    
+    // Force ID to be a number just in case
+    const targetId = Number(id);
     let data = getData(type);
-    data = data.filter(item => item.id !== id);
+    
+    const initialLength = data.length;
+    data = data.filter(item => Number(item.id) !== targetId);
+    
+    if (data.length === initialLength) {
+        console.warn(`Item with ID ${id} not found in ${type}`);
+    }
+
     saveData(type, data);
     renderAll();
 }
 
-// Universal Edit
+// Simple Edit for Table-based data
 function editItem(type, id) {
     let arr = getData(type);
     const item = arr.find(i => i.id === id);
-    if(!item) return alert('Error: Item ID missing. Delete and re-add this item.');
+    if(!item) return;
 
-    if(type === 'products') {
-        item.name = prompt('Product Name', item.name) || item.name;
-        item.company = prompt('Company', item.company) || item.company;
-        item.qty = +prompt('Quantity', item.qty) || item.qty;
-        item.price = +prompt('Price', item.price) || item.price;
-    } else if (type === 'salesmen') {
+    if(type === 'salesmen') {
         item.name = prompt('Name', item.name) || item.name;
         item.mobile = prompt('Mobile', item.mobile) || item.mobile;
         item.area = prompt('Area', item.area) || item.area;
-    } else if (type === 'companies') {
-        item.name = prompt('Company Name', item.name) || item.name;
     } else if (type === 'defects') {
         item.qty = +prompt('Quantity', item.qty) || item.qty;
         item.type = prompt('Type (Defective/Replacement)', item.type) || item.type;
@@ -153,11 +158,9 @@ function editItem(type, id) {
     renderAll();
 }
 
-// Prices and Modal Helpers
 function renderPrices(){
     const priceTable = document.getElementById('priceTable');
     if(!priceTable) return;
     priceTable.innerHTML='';
     getData('products').forEach(p=>priceTable.innerHTML+=`<tr><td>${p.name}</td><td>${p.company}</td><td>₹${p.price}</td></tr>`);
 }
-function modalImg(src){document.getElementById('modal').style.display='flex';document.getElementById('modalImg').src=src}
