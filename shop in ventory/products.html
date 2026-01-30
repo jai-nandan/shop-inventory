@@ -3,7 +3,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Products</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -25,14 +24,18 @@
 
 <section>
 <h2>📦 Products</h2>
-<input id="pName" placeholder="Product Name">
-<input id="pCompany" placeholder="Company">
-<input id="pQty" type="number" placeholder="Quantity">
-<input id="pPrice" type="number" placeholder="Price">
-<input id="pImg" type="file" accept="image/*">
-<button onclick="addProduct()">Add Product</button>
+<div class="form-group">
+    <input type="text" id="pName" placeholder="Product Name">
+    <input type="text" id="pCompany" placeholder="Company Name">
+    <input type="number" id="pQty" placeholder="Quantity">
+    <input type="number" id="pPrice" placeholder="Price (₹)">
+    <button onclick="addProduct()">Add Product</button>
+</div>
+
 <div id="productCards" class="card-grid"></div>
 
+<div id="modal" class="modal" onclick="this.style.display='none'"><img id="modalImg"></div>
+</section>
 <div id="modal" class="modal" onclick="this.style.display='none'"><img id="modalImg"></div>
 </section>
 <script src="js/storage.js"></script>
